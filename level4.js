@@ -48,10 +48,10 @@ export default function() {
 
     const cardImage = obj => `<img src=${obj['image']} />`
 
-    const sumItUp = 
+    const stringIt = (x, y) => x + y
 
     return compose(
-      reduce(sumItUp)
+      reduce(stringIt, ''),
       map(cardImage),
       filter(value8or6),
     )(deck)
