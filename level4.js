@@ -9,33 +9,52 @@ export default function() {
     const deck = data['cards']
 
     const cardImage = card => `<img src=${card['image']} />`
-    console.log(map(cardImage, deck))
+
     return map(cardImage, deck)
   }
 
-  // const ex2 = 'Use filter to filter list of cards of the suit clubs'
-  // const exercise2 = _ => {
-  //   const data = getCards()
-  //
-  //   const cardSuit = obj => obj['suit'] === 'CLUBS'
-  //
-  //   return filter(cardSuit, cards)
-  // }
+  const ex2 = 'Use filter to filter list of cards of the suit clubs'
+  const exercise2 = _ => {
+    const data = getCards()
+    const deck = data['cards']
+
+    const cardSuit = obj => obj['suit'] === 'CLUBS'
+
+    return filter(cardSuit, deck)
+  }
 
   const ex3 =
     'Use reduce and count the number of cards that have a value of 8 or value of 6'
   const exercise3 = _ => {
     const data = getCards()
+    const deck = data['cards']
 
-    return null
+    const value8or6 = obj => obj['value'] === '8' || obj['value'] === '6'
+
+    const newDeck = filter(value8or6, deck)
+
+    const countIt = x => x + 1
+
+    return reduce(countIt, 0, newDeck)
   }
 
   const ex4 = `Use map, filter and reduce with compose
     to show all cards as images that contain values of 8 or 6`
   const exercise4 = _ => {
     const data = getCards()
+    const deck = data['cards']
 
-    return null
+    const value8or6 = obj => obj['value'] === '8' || obj['value'] === '6'
+
+    const cardImage = obj => `<img src=${obj['image']} />`
+
+    const sumItUp = 
+
+    return compose(
+      reduce(sumItUp)
+      map(cardImage),
+      filter(value8or6),
+    )(deck)
   }
 
   /* tests to validate exercises go here */
