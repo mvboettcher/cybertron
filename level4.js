@@ -6,14 +6,21 @@ export default function() {
   const ex1 = 'Use map to transform list of card data to list of images'
   const exercise1 = _ => {
     const data = getCards()
-    return null
+    const deck = data['cards']
+
+    const cardImage = card => `<img src=${card['image']} />`
+    console.log(map(cardImage, deck))
+    return map(cardImage, deck)
   }
 
-  const ex2 = 'Use filter to filter list of cards of the suit clubs'
-  const exercise2 = _ => {
-    const data = getCards()
-    return null
-  }
+  // const ex2 = 'Use filter to filter list of cards of the suit clubs'
+  // const exercise2 = _ => {
+  //   const data = getCards()
+  //
+  //   const cardSuit = obj => obj['suit'] === 'CLUBS'
+  //
+  //   return filter(cardSuit, cards)
+  // }
 
   const ex3 =
     'Use reduce and count the number of cards that have a value of 8 or value of 6'

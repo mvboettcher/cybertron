@@ -2,7 +2,7 @@ import test from 'tape'
 import { map, filter, reduce, compose, prop } from 'nanofp'
 
 const stars = [
-  { first: 'elvis', last: 'presley', alive: true },
+  { first: 'elvis', last: 'presley', alive: false },
   { first: 'jim', last: 'morrison', alive: false },
   { first: 'bob', last: 'dylan', alive: true },
   { first: 'buddy', last: 'holly', alive: false }
@@ -18,6 +18,10 @@ export default function() {
     function fullNamify(obj) {
     return { fullname:  `${obj['first']} ${obj['last']}`}
   }
+
+    // function fullNamify(obj) {
+    //   return { fullname: fullname(obj)}
+    // }
 
     return map(fullNamify, stars)
     // // or...
@@ -38,14 +42,10 @@ export default function() {
   const exercise3 = _ => {
 
     const isntAlive = star => star['alive'] === false
+    const deadStars = filter(isntAlive, stars)
+    const countIt = a => a + 1
 
-    function deadStars() {
-      return filter(isntAlive, stars)
-  }
-
-    const countIt = (a, b) => a + 1
-
-    return reduce(countIt, 0, deadStars())
+    return reduce(countIt, 0, deadStars)
   }
 
   const ex4 =
@@ -54,11 +54,13 @@ export default function() {
 
     const isAlive = star => star['alive']
 
-    const stringIt = (a, b) => b
+    const fullnameStr = obj => `${obj['first']} ${obj['last']}`
+
+    const stringIt = (acc, fullname) => acc + fullname
 
     return compose(
-      reduce(stringIt, 0),
-      map(fullname),
+      reduce(stringIt, ''),
+      map(fullnameStr),
       filter(isAlive)
     )(stars)
 }
