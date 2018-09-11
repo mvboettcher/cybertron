@@ -10,7 +10,7 @@ export default function() {
 
     const cardImage = card => `<img src=${card['image']} />`
 
-    return map(cardImage, deck)
+    return deck.map(cardImage)
   }
 
   const ex2 = 'Use filter to filter list of cards of the suit clubs'
@@ -20,7 +20,7 @@ export default function() {
 
     const cardSuit = obj => obj['suit'] === 'CLUBS'
 
-    return filter(cardSuit, deck)
+    return deck.filter(cardSuit)
   }
 
   const ex3 =
@@ -31,11 +31,11 @@ export default function() {
 
     const value8or6 = obj => obj['value'] === '8' || obj['value'] === '6'
 
-    const newDeck = filter(value8or6, deck)
+    const newDeck = deck.filter(value8or6)
 
     const countIt = x => x + 1
 
-    return reduce(countIt, 0, newDeck)
+    return newDeck.reduce(countIt, 0)
   }
 
   const ex4 = `Use map, filter and reduce with compose
@@ -50,11 +50,10 @@ export default function() {
 
     const stringIt = (x, y) => x + y
 
-    return compose(
-      reduce(stringIt, ''),
-      map(cardImage),
-      filter(value8or6),
-    )(deck)
+    return deck
+      .filter(value8or6)
+      .map(cardImage)
+      .reduce(stringIt, '')
   }
 
   /* tests to validate exercises go here */

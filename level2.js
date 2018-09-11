@@ -10,7 +10,7 @@ export default function() {
   const exercise1 = _ => {
     const hexes = ['#0000ff', '#f5f5dc', '#cd853f', '#663399', '#ffa500']
 
-    return map(hex2color, hexes)
+    return hexes.map(hex2color)
   }
 
   const ex2 =
@@ -19,13 +19,17 @@ export default function() {
     const hexes = ['#0000ff', '#f5f5dc', '#cd853f', '#663399', '#ffa500']
 
     function isNotRGB(hex) {
-      if(hex2color(hex) !== 'red' && hex2color(hex) !== 'green' && hex2color(hex) !== 'blue') {
+      if (
+        hex2color(hex) !== 'red' &&
+        hex2color(hex) !== 'green' &&
+        hex2color(hex) !== 'blue'
+      ) {
         return true
       }
       return false
     }
 
-    return filter(isNotRGB, hexes)
+    return hexes.filter(isNotRGB)
   }
 
   const ex3 =
@@ -33,13 +37,13 @@ export default function() {
   const exercise3 = _ => {
     const hexes = ['#0000ff', '#f5f5dc', '#cd853f', '#663399', '#ffa500']
 
-    const containsR = hex => hex2color(hex).includes('r');
+    const containsR = hex => hex2color(hex).includes('r')
 
-    const colorsWithR = filter(containsR, hexes)
+    const colorsWithR = hexes.filter(containsR)
 
-    const countIt = (a, b) => a + 1
+    const countIt = a => a + 1
 
-    return reduce(countIt, 0, colorsWithR)
+    return colorsWithR.reduce(countIt, 0)
   }
 
   const ex4 =
@@ -53,14 +57,13 @@ export default function() {
 
     const doesntContainB = hex => hex.includes('b')
 
-    const countIt = (a, b) => a + 1
+    const countIt = a => a + 1
 
-    return compose(
-      reduce(countIt, 0),
-      filter(doesntContainB),
-      filter(isNotRGB),
-      map(hex2color)
-    )(hexes)
+    return hexes
+      .map(hex2color)
+      .filter(isNotRGB)
+      .filter(doesntContainB)
+      .reduce(countIt, 0)
   }
 
   /* tests to validate exercises go here */

@@ -5,11 +5,11 @@ export default function() {
   /* Level 1 */
   const ex1 = 'use map to double each value and return'
   const exercise1 = _ => {
-    const numbers = [1, 2, 4, 8, 16, 32]
+    const numbersArr = [1, 2, 4, 8, 16, 32]
 
     const doubler = n => n * 2
 
-    return map(doubler, numbers)
+    return numbersArr.map(doubler)
   }
 
   const ex2 = 'use filter to only return even numbers'
@@ -18,18 +18,16 @@ export default function() {
 
     const isEven = n => n % 2 === 0
 
-    return filter(isEven, numbers)
+    return numbers.filter(isEven)
   }
 
   const ex3 = 'use reduce to sum the numbers'
   const exercise3 = _ => {
     const numbers = [1, 2, 3, 4, 5, 6]
 
-    function sumIt(a, b) {
-      return a + b
-    }
+    const addItUp = (a, b) => a + b
 
-    return reduce(sumIt, 0, numbers)
+    return numbers.reduce(addItUp)
   }
 
   const ex4 = `use compose to run the following three commands
@@ -41,19 +39,18 @@ export default function() {
   const exercise4 = _ => {
     const numbers = [1, 2, 4, 8, 16, 32]
 
-    const squareIt = n => n *= n
+    const squareIt = n => (n *= n)
     const isDivBy8 = n => n % 8 === 0
-    function countIt(a, b) {
+    const countIt = a => {
       let inc = 1
       inc++
       return a + 1
     }
 
-    return compose(
-      reduce(countIt, 0),
-      filter(isDivBy8),
-      map(squareIt)
-    )(numbers)
+    return numbers
+      .map(squareIt)
+      .filter(isDivBy8)
+      .reduce(countIt, 0)
   }
 
   /* tests to validate exercises go here */

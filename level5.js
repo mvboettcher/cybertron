@@ -45,8 +45,10 @@ const data = {
  * map through the results.rows array and return a list of movie docs.
  */
 const challenge1 = () => {
-  const { map } = R
-  return null
+  // const { map } = R
+  const getMovieDoc = movie => movie['doc']
+
+  return data['rows'].map(getMovieDoc)
 }
 
 /** Level 5 = Challenge 2
@@ -56,8 +58,11 @@ const challenge1 = () => {
  *
  */
 const challenge2 = () => {
-  const { map, filter } = R
-  return null
+  // const { map, filter } = R
+  const getMovieDoc = movie => movie['doc']
+  const before1990 = movie => movie['year'] < 1990
+
+  return data['rows'].map(getMovieDoc).filter(before1990)
 }
 
 /** level 5 - Challenge 3
@@ -69,8 +74,19 @@ const challenge2 = () => {
  * check out - append - http://ramdajs.com/docs/#append
  */
 const challenge3 = () => {
-  const { reduce, map, append } = R
-  return null
+  // const { reduce, map, append } = R
+  const getMovieDoc = movie => movie['doc']
+  const is1980s = movie => movie['year'] < 1990
+  const is1990s = movie => movie['year'] > 1989
+
+  const movies80s = data['rows'].map(getMovieDoc).filter(is1980s)
+  const movies90s = data['rows'].map(getMovieDoc).filter(is1990s)
+
+  const groupMovies = (arr1, arr2) => {
+    return { '80s': arr1, '90s': arr2 }
+  }
+
+  return groupMovies(movies80s, movies90s)
 }
 
 /**
@@ -84,8 +100,10 @@ const challenge3 = () => {
  *
  */
 const challenge4 = () => {
-  const { map, compose } = R
-  return null
+  // const { map, compose } = R
+  const getMovieDoc = movie => `<li>${movie.doc.name} - ${movie.doc.year}</li>`
+
+  return data['rows'].map(getMovieDoc)
 }
 
 export default () => {
@@ -98,7 +116,10 @@ export default () => {
     t.plan(1)
     t.deepEquals(
       R.filter(
-        R.compose(R.lt(R.__, '1990'), R.prop('year')),
+        R.compose(
+          R.lt(R.__, '1990'),
+          R.prop('year')
+        ),
         R.pluck('doc', data.rows)
       ),
       challenge2()

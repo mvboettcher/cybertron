@@ -13,8 +13,8 @@ import test from 'tape'
  *
  * find - applies a function to each element of an array and returns the first element for which the function returns a truthy value.
  *
- * you hae a deck of cards, the cards is a property on the deck object.
- * you can inpect the shape of the cards object by doing a console.log(JSON.stringify(___, null, 2))
+ * you have a deck of cards, the cards array is a property on the deck object.
+ * you can inspect the shape of the cards object by doing a console.log(JSON.stringify(___, null, 2))
  *
  * Challenge:
  *   Use the find function to find the Ace of Clubs and return that card to the
@@ -32,7 +32,10 @@ const challenge1 = deck => {
   // show card object
   // console.log(JSON.stringify(deck.cards[0], null, 2))
   const { find, propEq } = R
-  return null
+
+  return deck['cards'].find(card => card['code'] === 'AC')
+
+  // return find(propEq('code', 'AC'))(deck.cards)
 }
 
 /** Level 6 = Challenge 2
@@ -52,8 +55,17 @@ const challenge1 = deck => {
  */
 const challenge2 = deck => {
   const { compose, map, filter, anyPass, propEq, join, path } = R
+  // JS JH KD
 
-  return null
+  const isOneEyedRoyal = card =>
+    card['code'] === 'JS' || card['code'] === 'JH' || card['code'] === 'KD'
+
+  const returnImage = card => card['image']
+
+  return deck['cards']
+    .filter(isOneEyedRoyal)
+    .map(returnImage)
+    .join(', ')
 }
 
 /** level 6 - Challenge 3

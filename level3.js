@@ -7,63 +7,51 @@ const stars = [
   { first: 'bob', last: 'dylan', alive: true },
   { first: 'buddy', last: 'holly', alive: false }
 ]
-const fullname = o => `${prop('first', o)} ${prop('last', o)}`
+const fullname = o => `${o['first']} ${o['last']}`
 
 /* Level 3 - rockstars */
 export default function() {
   const ex1 =
     'Use map to transform list of rockstar first,last name objects to objects with fullname'
   const exercise1 = _ => {
+    const fullNamify = obj => {
+      return { fullname: `${obj['first']} ${obj['last']}` }
+    }
 
-    function fullNamify(obj) {
-    return { fullname:  `${obj['first']} ${obj['last']}`}
-  }
-
-    // function fullNamify(obj) {
-    //   return { fullname: fullname(obj)}
-    // }
-
-    return map(fullNamify, stars)
-    // // or...
-    // const objectCreator = (str) => ({fullname: str})
-    //    return map(objectCreator, map(fullname, stars))
+    return stars.map(fullNamify)
   }
 
   const ex2 = 'Use filter to filter list of rockstars that are still alive'
   const exercise2 = _ => {
-
     const isAlive = star => star['alive']
 
-    return filter(isAlive, stars)
+    return stars.filter(isAlive)
   }
 
   const ex3 =
     'Use reduce and count the number of stars that are no longer living'
   const exercise3 = _ => {
-
     const isntAlive = star => star['alive'] === false
-    const deadStars = filter(isntAlive, stars)
+    const deadStars = stars.filter(isntAlive)
     const countIt = a => a + 1
 
-    return reduce(countIt, 0, deadStars)
+    return deadStars.reduce(countIt, 0)
   }
 
   const ex4 =
     'Use map, filter and reduce with compose show a concatenated string of the fullnames of each alive star'
   const exercise4 = _ => {
-
     const isAlive = star => star['alive']
 
     const fullnameStr = obj => `${obj['first']} ${obj['last']}`
 
     const stringIt = (acc, fullname) => acc + fullname
 
-    return compose(
-      reduce(stringIt, ''),
-      map(fullnameStr),
-      filter(isAlive)
-    )(stars)
-}
+    return stars
+      .filter(isAlive)
+      .map(fullnameStr)
+      .reduce(stringIt, '')
+  }
   /* tests to validate exercises go here */
   test('test', assert => {
     assert.plan(4)
